@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="../js/jquery-3.7.1.min.js"></script>
+        <style>
+            .wrap,
+            .wrap * {
+                border: 1px solid lightgray;
+                display: block;
+                padding: 5px;
+                margin: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>객체 탐색</h1>
+        <h2>탐색 메소드</h2>
+        <h3>Sideways 메소드</h3>
+        <div class="wrap">
+            div(parent)
+            <p>p</p>
+            <span>span</span>
+            <h4>h4</h4>
+            <h5>h5</h5>
+            <p>p</p>
+        </div>
+        <script>
+            $(() => {
+                $('h4').siblings().css({ color: 'red', border: '2px solid red' });
+                $('h4').siblings('p').css({ color: 'orange', border: '2px solid orange' });
+                $('h4').next().css({ color: 'orange', border: '2px solid orange' });
+                $('h4').nextAll().css('font-size', '30px');
+                $('h4').nextUntil('p').css('border', 'dashed');
+                $('h4').prev().css({ background: 'red', color: 'white' });
+                $('h4').prevAll().css({ background: 'beige', color: 'green' });
+                $('h4').prevUntil('p').css('border', 'double');
+
+                const h4 = document.querySelector('h4');
+                console.log(h4);
+                const next = h4.nextElementSibling;
+                next.style.border = '2px dotted blue';
+                const prev = h4.previousElementSibling;
+                prev.style.borderStyle = 'none';
+            });
+        </script>
+
+        <table border="1">
+            <tr>
+                <td>강건강</td>
+                <td>25</td>
+                <td>운동</td>
+            </tr>
+            <tr>
+                <td>남나눔</td>
+                <td>17</td>
+                <td>요리</td>
+            </tr>
+            <tr>
+                <td>도대담</td>
+                <td>30</td>
+                <td>등산</td>
+            </tr>
+            <label>선택한 게시물 : </label>
+            <label id="selectName"></label>
+            /
+            <label id="selectAge"></label>
+            /
+            <label id="selectHobby"></label>
+        </table>
+
+        <script>
+            // table을 클릭하면 해당 행의 정보가 아래에 출력
+            $(() => {
+                // 1. jquery 방식 : $(선택자).click()
+                // (1) td에서 click()
+                $('td').click(function () {
+                    const tr = $(this).parent();
+                    const tds = tr.children();
+                    $('#selectName').text(tds.eq(0).text());
+                    $('#selectAge').text(tds.eq(1).text());
+                    $('#selectHobby').text(tds.eq(2).text());
+                });
+
+                // (2) tr에 click()
+                // $('tr').click(function () {
+                //     // 화살표안에서 this객체는 window / function의 this객체는 tr
+                //     // console.log(this); // 자바 형식
+                //     // console.log($(this)); // jQuery 형식
+                //     const tds = $(this).children('td');
+                //     //console.log(tds);
+                //     // console.log(tds[0]);
+                //     // console.log(tds.eq(0));
+                //     const name = tds.eq(0).text();
+                //     const age = tds.eq(1).text();
+                //     const hobby = tds.eq(2).text();
+                //     $('#selectName').text(name);
+                //     $('#selectAge').text(age);
+                //     $('#selectHobby').text(hobby);
+                // });
+                // 2. javascript 방식 : 선택자.onclick
+                // (1) td에서 onclick
+                // const tdArr = document.getElementsByTagName('td');
+
+                // for (const td of tdArr) {
+                //     td.onclick = function () {
+                //         const tr = this.parentElement;
+                //         const tds = tr.children;
+
+                //         let name = null;
+                //         let age = null;
+                //         let hobby = null;
+
+                //         if (tds[0].innerText != '이름') {
+                //             name = tds[0].innerText;
+                //             age = tds[1].innerText;
+                //             hobby = tds[2].innerText;
+                //         }
+
+                //         document.querySelector('#selectName').innerText = name;
+                //         document.querySelector('#selectAge').innerText = age;
+                //         document.querySelector('#selectHobby').innerText = hobby;
+                //     };
+                // }
+
+                // (2) tr에 onclick
+                // const trArr = document.getElementsByTagName('tr');
+                // // console.log(trArr);
+                // for (const tr of trArr) {
+                //     tr.onclick = function () {
+                //         // console.log(this);
+                //         const tds = this.children;
+                //         // console.log(tds);
+                //         let name = null;
+                //         let age = null;
+                //         let hobby = null;
+                //         if (tds[0].innerText != '이름') {
+                //             name = tds[0].innerText;
+                //             age = tds[1].innerText;
+                //             hobby = tds[2].innerText;
+                //         }
+                //         document.querySelector('#selectName').innerText = name;
+                //         document.querySelector('#selectAge').innerText = age;
+                //         document.querySelector('#selectHobby').innerText = hobby;
+                //     };
+                // }
+
+                // 화살표 함수에 이벤트 target접근
+                const tdArr = document.getElementsByTagName('td');
+                // console.log(tdArr);
+                for (const td of tdArr) {
+                    td.onclick = (e) => {
+                        // console.log(e);
+                        const tr = e.target.parentElement;
+                        // console.log(tr);
+                        const tds = tr.children;
+                        document.querySelector('#selectName').innerText = tds[0].innerText;
+                        document.getElementById('selectAge').innerText = tds[1].innerText;
+                        document.getElementById('selectHobby').innerText = tds[2].innerText;
+                    };
+                }
+            });
+        </script>
+    </body>
+</html>

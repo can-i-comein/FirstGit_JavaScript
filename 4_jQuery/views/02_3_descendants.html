@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <h3>Descendants메소드</h3>
+        <p>선택된 요소의 하위 요소들을 선택할 수 있는 메소드</p>
+        <div class="wrap">
+            <div class="type">
+                div (great-grandparent)
+                <ul>
+                    ul (grandparent)
+                    <li>li</li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            $(() => {
+                const style1 = { color: 'red', border: '2px solid red' };
+                const style2 = { color: 'blue', border: '2px solid blue' };
+                const style3 = { color: 'green', border: '2px solid green' };
+                const style4 = { color: 'pink', border: '2px solid pink' };
+                const style5 = { color: 'orange', border: '2px solid orange' };
+
+                $('.wrap').children().css(style1);
+                $('.wrap').children().children().css(style2);
+                //          div type     ul, p
+                $('.wrap').children().children('ul').css(style3);
+                $('.wrap').children().children().children().children('span').css(style4);
+                $('.wrap').find('span').css(style4);
+
+                // span1, span2한테 주황색 css 걸기
+                // $('li').children().css(style5);
+                // $('li').children('span').css(style5);
+                // $('.wrap').children().children('ul').children().children().css(style5);
+                // $('.wrap').children().children().children('li').children().css(style5);
+                $('.wrap').find('li').children().css(style5);
+
+                const wrap = document.getElementsByClassName('wrap')[0];
+                console.log(wrap);
+                console.log(wrap.children);
+
+                // $('.wrap').children().css(style1);
+                for (const child of wrap.children) {
+                    child.style.border = '2px dashed red';
+
+                    // $('.wrap').children().children().css(style2);
+                    console.log(child.children[0]);
+                    const childChildren = child.children[0];
+                    childChildren.style.border = ' 2px dashed blue';
+                }
+                // console.log(wrap.children.children);
+
+                $('.wrap').find('span').css(style4);
+                // console.log(document.getElementsByClassName('wrap'));
+                // console.log(document.querySelector('.wrap'));
+                // console.log(document.querySelectorAll('.wrap'));
+                const spans = wrap.querySelectorAll('span');
+                console.log(spans);
+                for (const span of spans) {
+                    span.style.border = '2px dashed pink';
+                }
+            });
+        </script>
+    </body>
+</html>
