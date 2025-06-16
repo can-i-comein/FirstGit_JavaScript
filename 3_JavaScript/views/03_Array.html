@@ -125,7 +125,7 @@
         </script>
 
         <h3>push()와 pop()</h3>
-        <!-- 배열 추가 / 배열 삭제 -->
+        <!-- 뒤에 배열 추가 / 배열 삭제 -->
         <button onclick="pushPopTest()">확인하기</button>
         <script>
             const pushPopTest = () => {
@@ -167,7 +167,7 @@
         <script>
             const sliceSpliceTest = () => {
                 const arr = ['자바', 'DB', 'HTML', 'CSS', 'JavaScript'];
-                console.log(arr.slice(2, 4)); // 2 <= index < 4
+                console.log(arr.slice(2, 4)); // 2 <= index < 4 인 것 출력, 원본 배열에 영향 x
                 console.log(arr);
 
                 console.log(arr.splice(2, 2, 'Spring')); // 2번째 인덱스부터 2개 삭제 후 추가
@@ -191,7 +191,38 @@
 
         <h2>보너스 : ...연산자</h2>
         <h3>= 나열 연산자 = 전개 연산자</h3>
+        <!-- 배열안의 수를 꺼내서 나열해줌 -->
         <button id="arrListOp">배열나열연산자</button>
-        <script></script>
+        <script>
+            document.getElementById('arrListOp').onclick = () => {
+                const arr1 = [1, 2, 3, 4];
+                const arr2 = [5, 6, 7, 8];
+
+                console.log('배열 출력 : ', arr1);
+                console.log('배열 나열 : ', ...arr1);
+
+                const combine1 = arr1.concat(arr2);
+                console.log(combine1);
+                const combine2 = [...arr1, ...arr2];
+                console.log(combine2);
+
+                const arr3 = [arr1, 10, 20];
+                console.log(arr3); // [[1, 2, 3, 4], 10, 20]
+
+                const arr4 = [...arr1, 10, 20];
+                console.log(arr4); // [1, 2, 3, 4, 10, 20]
+
+                const first = combine1[0];
+                const second = combine1[1];
+                const third = combine1[2];
+                console.log(first, second, third);
+
+                const [f, s, t, ...other] = combine1;
+                console.log(f);
+                console.log(s);
+                console.log(t);
+                console.log(other);
+            };
+        </script>
     </body>
 </html>
